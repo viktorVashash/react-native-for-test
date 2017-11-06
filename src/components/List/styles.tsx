@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { StyleConstants } from '../../constants'
 
-module.exports = StyleSheet.create({
+const styles = StyleSheet.create({
   list: {
     backgroundColor: 'transparent',
     marginHorizontal: 15,
@@ -46,7 +46,7 @@ module.exports = StyleSheet.create({
   },
   animatedPrice: {
     fontSize: 0,
-    color: StyleConstants.colors.white,
+    color: StyleConstants.colors.white
   },
   gameConsoleWrapper: {
     flexDirection: 'row'
@@ -60,7 +60,6 @@ module.exports = StyleSheet.create({
   },
   account: {
     fontFamily: StyleConstants.fontFamily.Miso,
-    marginTop: -5,
     fontSize: 14
   },
   borderStyle: {
@@ -71,3 +70,5 @@ module.exports = StyleSheet.create({
     borderRadius: 12
   }
 })
+
+export default styles

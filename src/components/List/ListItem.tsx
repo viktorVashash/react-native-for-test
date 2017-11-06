@@ -9,23 +9,29 @@ import {
 import { AnimationConstants } from '../../constants'
 import styles from './styles'
 
-class ListItem extends Component {
-  constructor (props) {
-    super(props)
+interface Props {
+  willChange?: boolean,
+  game?: object
+}
 
-    this.state = {
-      value: new Animated.Value(0),
-      right: new Animated.Value(0)
-    }
+interface State {
+  value: any,
+  right: any
+}
+
+class ListItem extends React.Component<Props, State> {
+  state = {
+    value: new Animated.Value(0),
+    right: new Animated.Value(0)
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps?: Props) {
     if (nextProps.willChange) {
       this.scroll()
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.fadeIn()
   }
 
@@ -49,7 +55,7 @@ class ListItem extends Component {
     }).start()
   }
 
-  render () {
+  render() {
     const easingStyle = [
       styles.gameWrapper, {
         transform: [{

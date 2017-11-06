@@ -8,26 +8,33 @@ import ListItem from './ListItem'
 import NewItem from './NewItem'
 import styles from './styles'
 
-class List extends Component {
-  constructor (props) {
-    super(props)
+interface Props {
+  games: Array<object>
+}
 
-    this._previousData = props.games;
-    this.state = {
-      games: [...props.games].reverse(),
-      willChange: false,
-      scrolling: true
-    }
+interface State {
+  games: Array<object>,
+  willChange: boolean,
+  scrolling: boolean
+}
+
+class List extends Component<Props, State> {
+  _previousData = this.props.games
+
+  state = {
+    games: [...this.props.games].reverse(),
+    willChange: false,
+    scrolling: true
   }
 
-  componentWillReceiveProps ({ games }) {
+  componentWillReceiveProps({ games }: Props) {
     if (games !== this._previousData) {
       this.setState({
         willChange: true,
         scrolling: false
       })
       setTimeout(() => {
-        this._previousData = games;
+        this._previousData = games
         this.setState({
           games: [...games].reverse(),
           willChange: false,
@@ -37,9 +44,9 @@ class List extends Component {
     }
   }
 
-  keyExtractor = (game, index) => game.id
+  keyExtractor = (game: any, index: number) => game.id
 
-  renderRow = (game) => {
+  renderRow = (game: any) => {
     const { willChange } = this.state
     const last = game.item.id + 1 === this._previousData.length
     const ItemComponent = last ? NewItem : ListItem
@@ -51,17 +58,16 @@ class List extends Component {
     )
   }
 
-  getItemLayout = (data, index) => {
+  getItemLayout = (data: Array<object>, index: number) => {
     return { offset: index, length: index, index: index}
   }
 
-  render () {
+  render() {
     return(
       <View style={styles.list}>
         { this.state.games ?
           <FlatList
             contentContainerStyle={styles.scrollContentContainer}
-            pageSize={20}
             scrollEnabled={this.state.scrolling}
             extraData={this.state.willChange}
             showsHorizontalScrollIndicator={false}

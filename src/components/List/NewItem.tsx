@@ -3,44 +3,44 @@ import {
   View,
   Text,
   Image,
-  Animated,
-  Easing,
-  Platform
+  Animated
 } from 'react-native'
 import { AnimationConstants } from '../../constants'
 import styles from './styles'
 
-const borderStyle = Platform.select({
-  ios: {
-    width: 24,
-    height: 12,
+interface Props {
+  willChange: boolean,
+  game: object
+}
+
+interface State {
+  opacity: any,
+  right: any,
+  priceView: any,
+  animatedPrice: any,
+  ellipse: any
+}
+
+class ListItem extends Component<Props, State> {
+  state = {
+    opacity: new Animated.Value(0),
+    right: new Animated.Value(0),
+    priceView: new Animated.Value(0),
+    animatedPrice: new Animated.Value(0),
+    ellipse: new Animated.Value(0)
   }
-})
 
-class ListItem extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      opacity: new Animated.Value(0),
-      right: new Animated.Value(0),
-      priceView: new Animated.Value(0),
-      animatedPrice: new Animated.Value(0),
-      ellipse: new Animated.Value(0)
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (nextProps.willChange) {
       this.fadeOut()
     }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.consoleAnimation()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.fadeOut()
   }
 
@@ -85,7 +85,7 @@ class ListItem extends Component {
     ]).start()
   }
 
-  render () {
+  render() {
     const consoleStyle = [
       styles.gameConsoleWrapper, {
         opacity: this.state.opacity.interpolate({
@@ -123,7 +123,7 @@ class ListItem extends Component {
     const animatedBorderStyle = [
       styles.borderStyle, {
         transform: [{
-            scaleX: 4,
+            scaleX: 4
           }, {
           scale: this.state.ellipse.interpolate({
             inputRange: [0, 1],

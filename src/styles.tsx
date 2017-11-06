@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { StyleConstants } from './constants'
 
-
-module.exports = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 20,
@@ -19,3 +18,5 @@ module.exports = StyleSheet.create({
     fontSize: 18
   }
 })
+
+export default styles
